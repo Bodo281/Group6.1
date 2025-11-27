@@ -36,3 +36,7 @@ unique_items
 item_net_revenue = {item: sum((sale["price"] * sale["quantity"]) * (1 - sale["discount"])for sale in sales if sale["item"] == item)for item in unique_items}
 
 print(item_net_revenue)
+
+top_items = [item for item, item_net_revenue in item_net_revenue.items() if item_net_revenue > 2000]
+print(top_items)
+
