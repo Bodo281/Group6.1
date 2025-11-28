@@ -44,3 +44,12 @@ print(top_items)
 # Part 4 — Filter Sales for High-Performing Items
 filtered_sales = [sale for sale in sales if sale["item"] in top_items]
 print(filtered_sales)
+
+
+#compute the total quantity sold per branch. Name the result: branch_quantities.
+
+branch_quantities = {
+    branch: sum(sale["quantity"] for sale in filtered_sales if sale["branch"] == branch)
+    for branch in {sale["branch"] for sale in filtered_sales}
+}
+branch_quantities
