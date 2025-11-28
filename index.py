@@ -37,6 +37,19 @@ item_net_revenue = {item: sum((sale["price"] * sale["quantity"]) * (1 - sale["di
 
 print(item_net_revenue)
 
+
+top_items = [item for item, item_net_revenue in item_net_revenue.items() if item_net_revenue > 2000]
+print(top_items)
+
+filtered_sales = [sale for sale in sales if sale["item"] in top_items]
+print(filtered_sales)
+
+branch_quantities = {
+    sale["branch"]: sum(sale["quantity"] for sale in filtered_sales if sale["branch"] == sale["branch"])
+    for sale in filtered_sales
+}
+print(branch_quantities)
+
 # Part 3 — Identify High-Performing Items
 top_items = [item for item, item_net_revenue in item_net_revenue.items() if item_net_revenue > 2000]
 print(top_items)
@@ -52,4 +65,7 @@ branch_quantities = {
     branch: sum(sale["quantity"] for sale in filtered_sales if sale["branch"] == branch)
     for branch in {sale["branch"] for sale in filtered_sales}
 }
-branch_quantities
+
+# Part 6 — Determine Branch with Highest Total Quantity Sold
+highest_total_quantity=max(branch_quantities, key = branch_quantities.get)
+print(highest_total_quantity)
